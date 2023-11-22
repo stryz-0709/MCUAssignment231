@@ -234,13 +234,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, Ped_LIGHT_1_Pin|BIT1_Pin|BIT3_Pin|BIT2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, Ped_LIGHT1_Pin|BIT1_Pin|BIT3_Pin|BIT2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, Ped_LIGHT_2_Pin|BIT0_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, Ped_LIGHT2_Pin|BIT0_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : Ped_BUTTON_Pin BUTTON_1_Pin BUTTON_2_Pin */
-  GPIO_InitStruct.Pin = Ped_BUTTON_Pin|BUTTON_1_Pin|BUTTON_2_Pin;
+  /*Configure GPIO pins : Ped_BUTTON_Pin BUTTON1_Pin BUTTON2_Pin */
+  GPIO_InitStruct.Pin = Ped_BUTTON_Pin|BUTTON1_Pin|BUTTON2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -251,21 +251,21 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : BUTTON_3_Pin */
-  GPIO_InitStruct.Pin = BUTTON_3_Pin;
+  /*Configure GPIO pin : BUTTON3_Pin */
+  GPIO_InitStruct.Pin = BUTTON3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(BUTTON_3_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(BUTTON3_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : Ped_LIGHT_1_Pin BIT1_Pin BIT3_Pin BIT2_Pin */
-  GPIO_InitStruct.Pin = Ped_LIGHT_1_Pin|BIT1_Pin|BIT3_Pin|BIT2_Pin;
+  /*Configure GPIO pins : Ped_LIGHT1_Pin BIT1_Pin BIT3_Pin BIT2_Pin */
+  GPIO_InitStruct.Pin = Ped_LIGHT1_Pin|BIT1_Pin|BIT3_Pin|BIT2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : Ped_LIGHT_2_Pin BIT0_Pin */
-  GPIO_InitStruct.Pin = Ped_LIGHT_2_Pin|BIT0_Pin;
+  /*Configure GPIO pins : Ped_LIGHT2_Pin BIT0_Pin */
+  GPIO_InitStruct.Pin = Ped_LIGHT2_Pin|BIT0_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

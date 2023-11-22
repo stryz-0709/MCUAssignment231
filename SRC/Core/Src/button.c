@@ -7,16 +7,16 @@
 
 #include "button.h"
 
-int button_flag [3] = {0, 0, 0};
+int button_flag [4] = {0, 0, 0, 0};
 
-GPIO_TypeDef *BUTTON_PORT [3] = {BUTTON1_GPIO_Port, BUTTON2_GPIO_Port, BUTTON3_GPIO_Port};
-uint16_t BUTTON_PIN [3] = {BUTTON1_Pin, BUTTON2_Pin, BUTTON3_Pin};
+GPIO_TypeDef *BUTTON_PORT [4] = {BUTTON1_GPIO_Port, BUTTON2_GPIO_Port, BUTTON3_GPIO_Port, Ped_BUTTON_GPIO_Port};
+uint16_t BUTTON_PIN [4] = {BUTTON1_Pin, BUTTON2_Pin, BUTTON3_Pin, Ped_BUTTON_GPIO_Port};
 
-int KeyReg0 [3] = {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE};
-int KeyReg1 [3] = {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE};
-int KeyReg2 [3] = {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE};
-int KeyReg3 [3] = {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE};
-int TimerForKeyPress [3] = {500, 500, 500};
+int KeyReg0 [4] = {NORMAL_STATE};
+int KeyReg1 [4] = {NORMAL_STATE};
+int KeyReg2 [4] = {NORMAL_STATE};
+int KeyReg3 [4] = {NORMAL_STATE};
+int TimerForKeyPress [4] = {500};
 
 int isButtonPressed(int button){
 	if (button_flag[button] == 1){
