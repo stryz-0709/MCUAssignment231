@@ -13,19 +13,23 @@ void changePedMode(int mode){
 
 void fsm_ped_run(){
 	switch(TRAFFIC_MODE){
+		case EDIT_MODE:
+			//TODO
+
+
+			if (isButtonPressed(3)){
+				setTimer(2, timer_counter[0]);
+				LED_MODE[2] = LED_MODE[0];
+				changePedMode(AUTO_MODE);
+			}
+			break;
 		case AUTO_MODE:
 			//TODO
 
-
 			if (isButtonPressed(3)){
-				changePedMode(PED_MODE);
-			}
-			break;
-		case PED_MODE:
-			//TODO
-
-			if (isButtonPressed(3)){
-				changePedMode(AUTO_MODE);
+				LED_MODE[2] = EDIT_MODE;
+				setTrafficLight(2, INIT);
+				changePedMode(EDIT_MODE);
 			}
 			break;
 		default:
