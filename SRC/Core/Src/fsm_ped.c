@@ -17,21 +17,21 @@ void changePedMode(int mode, int state){
 }
 
 void fsm_ped_run(){
-	switch(TRAFFIC_STATE){
+	switch(TRAFFIC_MODE){
 		case AUTO_MODE:
 			//TODO
 
 
 			if (isButtonPressed(3)){
-				changeMode(PED_MODE, EDIT_STATE);
+				changePedMode(PED_MODE, EDIT_STATE);
 			}
 			break;
 		case PED_MODE:
 			//TODO
 
 
-			if (ifButtonPressed(3)){
-				changeMode(AUTO_MODE, INIT_STATE);
+			if (isButtonPressed(3)){
+				changePedMode(AUTO_MODE, INIT_STATE);
 			}
 			break;
 		default:
