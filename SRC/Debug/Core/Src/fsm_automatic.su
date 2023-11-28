@@ -1,1 +1,2 @@
-fsm_automatic.c:18:6:fsm_automatic_run	16	static
+fsm_automatic.c:10:6:show_time	24	static
+fsm_automatic.c:22:6:fsm_automatic_run	16	static
