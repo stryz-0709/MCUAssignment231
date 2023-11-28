@@ -7,31 +7,70 @@
 
 #include "traffic_light.h"
 
-uint16_t REDLIGHT [2] = {RED1_Pin, RED2_Pin};
-uint16_t GREENLIGHT [2] = {GREEN1_Pin, GREEN2_Pin};
-uint16_t AMBERLIGHT [2] = {YELLOW1_Pin, YELLOW2_Pin};
+uint16_t D_Pin[4] = {D2_Pin, D3_Pin, D4_Pin, D5_Pin};
+GPIO_TypeDef *D_Port[4] = {D2_GPIO_Port, D3_GPIO_Port, D4_GPIO_Port, D5_GPIO_Port};
 
 
-void setTrafficLightDefault(int lane){
-	HAL_GPIO_WritePin(GPIOA, REDLIGHT[lane], SET);
-	HAL_GPIO_WritePin(GPIOA, GREENLIGHT[lane], SET);
-	HAL_GPIO_WritePin(GPIOA, AMBERLIGHT[lane], SET);
+void setTrafficLight(int lane, int light){
+	switch (light){
+		case RED_MODE:
+			HAL_GPIO_WritePin(D_Port[lane*2], D_Pin[lane*2], SET);
+			HAL_GPIO_WritePin(D_Port[lane*2+1], D_Pin[lane*2+1], RESET);
+			break;
+		case AMBER_MODE:
+			HAL_GPIO_WritePin(D_Port[lane*2], D_Pin[lane*2], SET);
+			HAL_GPIO_WritePin(D_Port[lane*2+1], D_Pin[lane*2+1], SET);
+			break;
+		case GREEN_MODE:
+			HAL_GPIO_WritePin(D_Port[lane*2], D_Pin[lane*2], RESET);
+			HAL_GPIO_WritePin(D_Port[lane*2+1], D_Pin[lane*2+1], SET);
+			break;
+		default:
+			HAL_GPIO_WritePin(D_Port[lane*2], D_Pin[lane*2], RESET);
+			HAL_GPIO_WritePin(D_Port[lane*2+1], D_Pin[lane*2+1], RESET);
+			break;
+	}
 }
 
-void setTrafficLightRed(int lane){
-	HAL_GPIO_WritePin(GPIOA, REDLIGHT[lane], RESET);
-	HAL_GPIO_WritePin(GPIOA, GREENLIGHT[lane], SET);
-	HAL_GPIO_WritePin(GPIOA, AMBERLIGHT[lane], SET);
+
+void toggleLight(int lane, int light){
+	switch (light){
+		case RED_MODE:
+			HAL_GPIO_TogglePin(D_Port[lane*2], D_Pin[lane*2]);
+			HAL_GPIO_WritePin(D_Port[lane*2+1], D_Pin[lane*2+1], RESET);
+			break;
+		case AMBER_MODE:
+			HAL_GPIO_TogglePin(D_Port[lane*2], D_Pin[lane*2]);
+			HAL_GPIO_TogglePin(D_Port[lane*2+1], D_Pin[lane*2+1]);
+			break;
+		case GREEN_MODE:
+			HAL_GPIO_WritePin(D_Port[lane*2], D_Pin[lane*2], RESET);
+			HAL_GPIO_TogglePin(D_Port[lane*2+1], D_Pin[lane*2+1]);
+			break;
+		default:
+			break;
+	}
 }
 
-void setTrafficLightGreen(int lane){
-	HAL_GPIO_WritePin(GPIOA, REDLIGHT[lane], SET);
-	HAL_GPIO_WritePin(GPIOA, GREENLIGHT[lane], RESET);
-	HAL_GPIO_WritePin(GPIOA, AMBERLIGHT[lane], SET);
+void setPedLight(int light){
+	switch (light){
+		case RED_MODE:
+			HAL_GPIO_WritePin(Ped_LIGHT1_GPIO_Port, Ped_LIGHT1_Pin, SET);
+			HAL_GPIO_WritePin(Ped_LIGHT2_GPIO_Port, Ped_LIGHT2_Pin, RESET);
+			break;
+		case AMBER_MODE:
+			HAL_GPIO_WritePin(Ped_LIGHT1_GPIO_Port, Ped_LIGHT1_Pin, SET);
+			HAL_GPIO_WritePin(Ped_LIGHT2_GPIO_Port, Ped_LIGHT2_Pin, SET);
+			break;
+		case GREEN_MODE:
+			HAL_GPIO_WritePin(Ped_LIGHT1_GPIO_Port, Ped_LIGHT1_Pin, RESET);
+			HAL_GPIO_WritePin(Ped_LIGHT2_GPIO_Port, Ped_LIGHT2_Pin, SET);
+			break;
+		default:
+			HAL_GPIO_WritePin(Ped_LIGHT1_GPIO_Port, Ped_LIGHT1_Pin, RESET);
+			HAL_GPIO_WritePin(Ped_LIGHT2_GPIO_Port, Ped_LIGHT2_Pin, RESET);
+			break;
+	}
 }
-void setTrafficLightAmber(int lane){
-	HAL_GPIO_WritePin(GPIOA, REDLIGHT[lane], SET);
-	HAL_GPIO_WritePin(GPIOA, GREENLIGHT[lane], SET);
-	HAL_GPIO_WritePin(GPIOA, AMBERLIGHT[lane], RESET);
-}
+
 

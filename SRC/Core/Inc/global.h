@@ -15,22 +15,30 @@
 #include "fsm_automatic.h"
 #include "fsm_manual.h"
 #include "fsm_ped.h"
+#include "uart_timer.h"
 
-#define INIT_STATE 1
-#define RED_STATE 2
-#define GREEN_STATE 3
-#define YELLOW_STATE 4
-#define EDIT_STATE 5
+//First state of fsm_automatic
+#define INIT 1
 
-#define AUTO_MODE 11
-#define RED_MODE 12
-#define AMBER_MODE 13
-#define GREEN_MODE 14
-#define PED_MODE 15
+#define AUTO_MODE 11 //To make fsm_automatic run
+#define EDIT_MODE 12 //To make fsm_automatic stop working
+#define PED_MODE 13  //To add pedestrian light
 
-extern int LED_STATE [2];
-extern int MODE; //For tuning traffic lights
-extern int TRAFFIC_MODE; //For pedestrian buzzer
+//Three modes for light, reusable
+#define RED_MODE 21
+#define AMBER_MODE 22
+#define GREEN_MODE 23
+
+
+extern int LED_MODE [2];
+
+//For tuning traffic lights
+extern int MODE; //AUTO_MODE, EDIT_MODE
+
+//To add pedestrian light and buzzer
+extern int TRAFFIC_MODE;
+
+//Light duration
 extern int RED_DURATION;
 extern int YELLOW_DURATION;
 extern int GREEN_DURATION;

@@ -1,0 +1,2 @@
+fsm_manual.c:12:6:changeMode	16	static
+fsm_manual.c:28:6:fsm_manual_run	8	static

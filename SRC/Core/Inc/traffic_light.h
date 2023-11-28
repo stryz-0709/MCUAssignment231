@@ -8,12 +8,12 @@
 #ifndef INC_TRAFFIC_LIGHT_H_
 #define INC_TRAFFIC_LIGHT_H_
 
-#include "main.h"
-void setTrafficLightDefault(int lane);
-void setTrafficLightRed(int lane);
-void setTrafficLightGreen(int lane);
-void setTrafficLightAmber(int lane);
+#include "global.h"
 
-void display7SEG(int type, int num);
+void setTrafficLight(int lane, int light);
+
+void toggleLight(int lane, int light);
+
+void setPedLight(int light);
 
 #endif /* INC_TRAFFIC_LIGHT_H_ */

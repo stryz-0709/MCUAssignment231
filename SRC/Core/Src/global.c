@@ -7,7 +7,7 @@
 
 #include "global.h"
 
-int LED_STATE [2] = {INIT_STATE, INIT_STATE};
+int LED_MODE [2] = {INIT, INIT};
 int MODE = AUTO_MODE;
 int TRAFFIC_MODE = AUTO_MODE;
 
