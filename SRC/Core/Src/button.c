@@ -10,7 +10,7 @@
 int button_flag [4] = {0, 0, 0, 0};
 
 GPIO_TypeDef *BUTTON_PORT [4] = {BUTTON1_GPIO_Port, BUTTON2_GPIO_Port, BUTTON3_GPIO_Port, Ped_BUTTON_GPIO_Port};
-uint16_t BUTTON_PIN [4] = {BUTTON1_Pin, BUTTON2_Pin, BUTTON3_Pin, Ped_BUTTON_GPIO_Port};
+uint16_t BUTTON_PIN [4] = {BUTTON1_Pin, BUTTON2_Pin, BUTTON3_Pin, Ped_BUTTON_Pin};
 
 int KeyReg0 [4] = {NORMAL_STATE};
 int KeyReg1 [4] = {NORMAL_STATE};
@@ -19,7 +19,7 @@ int KeyReg3 [4] = {NORMAL_STATE};
 int TimerForKeyPress [4] = {500};
 
 int isButtonPressed(int button){
-	if (button_flag[button] == 1){
+	if (button_flag[button]){
 		button_flag[button] = 0;
 		return 1;
 	}
