@@ -14,6 +14,7 @@
 #include "traffic_light.h"
 #include "fsm_automatic.h"
 #include "fsm_manual.h"
+#include "fsm_ped.h"
 
 #define INIT_STATE 1
 #define RED_STATE 2
@@ -21,13 +22,15 @@
 #define YELLOW_STATE 4
 #define EDIT_STATE 5
 
-#define MODE_1 11
-#define MODE_2 12
-#define MODE_3 13
-#define MODE_4 14
+#define AUTO_MODE 11
+#define RED_MODE 12
+#define AMBER_MODE 13
+#define GREEN_MODE 14
+#define PED_MODE 15
 
 extern int LED_STATE [2];
-extern int MODE;
+extern int MODE; //For tuning traffic lights
+extern int TRAFFIC_MODE; //For pedestrian buzzer
 extern int RED_DURATION;
 extern int YELLOW_DURATION;
 extern int GREEN_DURATION;
