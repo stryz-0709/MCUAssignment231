@@ -14,6 +14,4 @@ void setTrafficLight(int lane, int light);
 
 void toggleLight(int lane, int light);
 
-void setPedLight(int light);
-
 #endif /* INC_TRAFFIC_LIGHT_H_ */
