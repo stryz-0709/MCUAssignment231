@@ -9,35 +9,32 @@
 
 int tempDuration = 0;
 
-void changeMode(int mode, int state){
-	LED_STATE[0] = state;
-	LED_STATE[1] = state;
-	setTrafficLightDefault(0);
-	setTrafficLightDefault(1);
+void changeMode(int mode, int ledMode){
+	LED_MODE[0] = ledMode;
+	LED_MODE[1] = ledMode;
+	setTrafficLight(0, INIT);
+	setTrafficLight(1, INIT);
 	MODE = mode;
 	setTimer(2, 25);
 }
 
-//void displayDuration(int mode, int duration){
-//	display7SEG(0, mode);
-//	display7SEG(1, 0);
-//	display7SEG(2, duration % 10);
-//	display7SEG(3, (int) (duration / 10));
-//}
+void displayMode(int mode, int duration){
+	displayUART(mode, duration);
+}
 
 void fsm_manual_run(){
 	switch(MODE){
 		case AUTO_MODE:
 			if (isButtonPressed(0)){
 				tempDuration = RED_DURATION;
-				changeMode(RED_MODE, EDIT_STATE);
+				changeMode(RED_MODE, EDIT_MODE);
 			}
 			break;
 		case RED_MODE:
-//			displayDuration(2, tempDuration);
+			displayMode(RED_MODE, tempDuration);
 			if (isButtonPressed(0)){
 				tempDuration = YELLOW_DURATION;
-				changeMode(AMBER_MODE, EDIT_STATE);
+				changeMode(AMBER_MODE, EDIT_MODE);
 			}
 			if (isButtonPressed(1)){
 				tempDuration++;
@@ -47,16 +44,16 @@ void fsm_manual_run(){
 				RED_DURATION = tempDuration;
 			}
 			if (timer_flag[2]){
-//				HAL_GPIO_TogglePin(GPIOA, RED1_Pin);
-//				HAL_GPIO_TogglePin(GPIOA, RED2_Pin);
+				toggleLight(0, RED_MODE);
+				toggleLight(1, RED_MODE);
 				setTimer(2, 25);
 			}
 			break;
 		case AMBER_MODE:
-//			displayDuration(3, tempDuration);
+			displayMode(AMBER_MODE, tempDuration);
 			if (isButtonPressed(0)){
 				tempDuration = GREEN_DURATION;
-				changeMode(GREEN_MODE, EDIT_STATE);
+				changeMode(GREEN_MODE, EDIT_MODE);
 			}
 			if (isButtonPressed(1)){
 				tempDuration++;
@@ -66,15 +63,15 @@ void fsm_manual_run(){
 				YELLOW_DURATION = tempDuration;
 			}
 			if (timer_flag[2]){
-//				HAL_GPIO_TogglePin(GPIOA, YELLOW1_Pin);
-//				HAL_GPIO_TogglePin(GPIOA, YELLOW2_Pin);
+				toggleLight(0, AMBER_MODE);
+				toggleLight(1, AMBER_MODE);
 				setTimer(2, 25);
 			}
 			break;
 		case GREEN_MODE:
-//			displayDuration(4, tempDuration);
+			displayMode(GREEN_MODE, tempDuration);
 			if (isButtonPressed(0)){
-				changeMode(AUTO_MODE, INIT_STATE);
+				changeMode(AUTO_MODE, INIT);
 			}
 			if (isButtonPressed(1)){
 				tempDuration++;
@@ -84,15 +81,10 @@ void fsm_manual_run(){
 				GREEN_DURATION = tempDuration;
 			}
 			if (timer_flag[2]){
-//				HAL_GPIO_TogglePin(GPIOA, GREEN1_Pin);
-//				HAL_GPIO_TogglePin(GPIOA, GREEN2_Pin);
+				toggleLight(0, GREEN_MODE);
+				toggleLight(1, GREEN_MODE);
 				setTimer(2, 25);
 			}
-			break;
-		case PED_MODE:
-			if (isButtonPressed(0));
-			if (isButtonPressed(1));
-			if (isButtonPressed(2));
 			break;
 		default:
 			 break;

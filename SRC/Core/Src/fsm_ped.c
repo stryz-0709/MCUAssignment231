@@ -7,13 +7,8 @@
 
 #include "fsm_ped.h"
 
-void changePedMode(int mode, int state){
-	LED_STATE[0] = state;
-	LED_STATE[1] = state;
-	setTrafficLightDefault(0);
-	setTrafficLightDefault(1);
+void changePedMode(int mode){
 	TRAFFIC_MODE = mode;
-	MODE = mode;
 }
 
 void fsm_ped_run(){
@@ -23,15 +18,14 @@ void fsm_ped_run(){
 
 
 			if (isButtonPressed(3)){
-				changePedMode(PED_MODE, EDIT_STATE);
+				changePedMode(PED_MODE);
 			}
 			break;
 		case PED_MODE:
 			//TODO
 
-
 			if (isButtonPressed(3)){
-				changePedMode(AUTO_MODE, INIT_STATE);
+				changePedMode(AUTO_MODE);
 			}
 			break;
 		default:

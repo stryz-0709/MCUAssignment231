@@ -7,52 +7,51 @@
 
 #include "fsm_automatic.h"
 
-//void show_time(int lane){
-//	if (timer_counter[lane] % 100 == 0){
-//		int remaining_time = timer_counter[lane] / 100;
-//		display7SEG(lane*2, remaining_time % 10);
-//		display7SEG(lane*2+1, (int) (remaining_time / 10));
-//	}
-//}
+void displayCountdown(int lane){
+	if (timer_counter[lane] % 100 == 0){
+		int remaining_time = timer_counter[lane] / 100;
+		displayUART(AUTO_MODE, remaining_time % 10);
+	}
+}
 
 void fsm_automatic_run(int lane){
-	switch(LED_STATE[lane]){
-		case INIT_STATE:
-			setTrafficLightDefault(lane);
+	switch(LED_MODE[lane]){
+		case INIT:
+			setTrafficLight(lane, INIT);
 			if (lane == 0){
-				LED_STATE[lane] = RED_STATE;
+				LED_MODE[lane] = RED_MODE;
 				setTimer(lane, RED_DURATION*100);
 			}
 			else{
-				LED_STATE[lane] = GREEN_STATE;
+				LED_MODE[lane] = GREEN_MODE;
 				setTimer(lane, GREEN_DURATION*100);
 			}
 			break;
-		case RED_STATE:
-//			show_time(lane);
-			setTrafficLightRed(lane);
+		case RED_MODE:
+			if (lane == 0) displayCountdown(lane);
+			setTrafficLight(lane, RED_MODE);
 			if(timer_flag[lane]){
-				LED_STATE[lane] = GREEN_STATE;
+				LED_MODE[lane] = GREEN_MODE;
 				setTimer(lane, GREEN_DURATION*100);
 			}
 			break;
-		case GREEN_STATE:
-//			show_time(lane);
-			setTrafficLightGreen(lane);
+		case GREEN_MODE:
+			if (lane == 0) displayCountdown(lane);
+			setTrafficLight(lane, GREEN_MODE);
 			if(timer_flag[lane]){
-				LED_STATE[lane] = YELLOW_STATE;
+				LED_MODE[lane] = AMBER_MODE;
 				setTimer(lane, YELLOW_DURATION*100);
 			}
 			break;
-		case YELLOW_STATE:
-//			show_time(lane);
-			setTrafficLightAmber(lane);
+		case AMBER_MODE:
+			if (lane == 0) displayCountdown(lane);
+			setTrafficLight(lane, AMBER_MODE);
 			if(timer_flag[lane]){
-				LED_STATE[lane] = RED_STATE;
+				LED_MODE[lane] = RED_MODE;
 				setTimer(lane, RED_DURATION*100);
 			}
 			break;
-		case EDIT_STATE:
+		case EDIT_MODE:
 			break;
 		default:
 			break;
