@@ -14,6 +14,6 @@ void setTrafficLightRed(int lane);
 void setTrafficLightGreen(int lane);
 void setTrafficLightAmber(int lane);
 
-void display7SEG(int type, int num);
+//void display7SEG(int type, int num);
 
 #endif /* INC_TRAFFIC_LIGHT_H_ */

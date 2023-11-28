@@ -64,20 +64,22 @@ void Error_Handler(void);
 #define BUTTON1_GPIO_Port GPIOA
 #define BUTTON2_Pin GPIO_PIN_4
 #define BUTTON2_GPIO_Port GPIOA
+#define LD2_Pin GPIO_PIN_5
+#define LD2_GPIO_Port GPIOA
 #define BUTTON3_Pin GPIO_PIN_0
 #define BUTTON3_GPIO_Port GPIOB
 #define Ped_LIGHT1_Pin GPIO_PIN_10
 #define Ped_LIGHT1_GPIO_Port GPIOB
 #define Ped_LIGHT2_Pin GPIO_PIN_8
 #define Ped_LIGHT2_GPIO_Port GPIOA
-#define BIT0_Pin GPIO_PIN_10
-#define BIT0_GPIO_Port GPIOA
-#define BIT1_Pin GPIO_PIN_3
-#define BIT1_GPIO_Port GPIOB
-#define BIT3_Pin GPIO_PIN_4
-#define BIT3_GPIO_Port GPIOB
-#define BIT2_Pin GPIO_PIN_5
-#define BIT2_GPIO_Port GPIOB
+#define D2_Pin GPIO_PIN_10
+#define D2_GPIO_Port GPIOA
+#define D3_Pin GPIO_PIN_3
+#define D3_GPIO_Port GPIOB
+#define D5_Pin GPIO_PIN_4
+#define D5_GPIO_Port GPIOB
+#define D4_Pin GPIO_PIN_5
+#define D4_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
