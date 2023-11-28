@@ -15,7 +15,7 @@ void changeMode(int mode, int ledMode){
 	setTrafficLight(0, INIT);
 	setTrafficLight(1, INIT);
 	MODE = mode;
-	setTimer(2, 25);
+	setTimer(3, 25);
 }
 
 void displayMode(int mode, int duration){
@@ -46,7 +46,7 @@ void fsm_manual_run(){
 			if (timer_flag[2]){
 				toggleLight(0, RED_MODE);
 				toggleLight(1, RED_MODE);
-				setTimer(2, 25);
+				setTimer(3, 25);
 			}
 			break;
 		case AMBER_MODE:
@@ -65,7 +65,7 @@ void fsm_manual_run(){
 			if (timer_flag[2]){
 				toggleLight(0, AMBER_MODE);
 				toggleLight(1, AMBER_MODE);
-				setTimer(2, 25);
+				setTimer(3, 25);
 			}
 			break;
 		case GREEN_MODE:
@@ -83,7 +83,7 @@ void fsm_manual_run(){
 			if (timer_flag[2]){
 				toggleLight(0, GREEN_MODE);
 				toggleLight(1, GREEN_MODE);
-				setTimer(2, 25);
+				setTimer(3, 25);
 			}
 			break;
 		default:

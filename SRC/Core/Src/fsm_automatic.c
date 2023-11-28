@@ -14,22 +14,24 @@ void displayCountdown(int lane){
 	}
 }
 
+
+int initMode[3] = {RED_MODE, GREEN_MODE, EDIT_MODE};
+int initDuration(int lane){
+	return (lane == 1)? GREEN_DURATION : RED_DURATION;
+}
+
 void fsm_automatic_run(int lane){
 	switch(LED_MODE[lane]){
 		case INIT:
 			setTrafficLight(lane, INIT);
-			if (lane == 0){
-				LED_MODE[lane] = RED_MODE;
-				setTimer(lane, RED_DURATION*100);
-			}
-			else{
-				LED_MODE[lane] = GREEN_MODE;
-				setTimer(lane, GREEN_DURATION*100);
-			}
+			LED_MODE[lane] = initMode[lane];
+			setTimer(lane, initDuration(lane)*100);
 			break;
 		case RED_MODE:
 			if (lane == 0) displayCountdown(lane);
+
 			setTrafficLight(lane, RED_MODE);
+
 			if(timer_flag[lane]){
 				LED_MODE[lane] = GREEN_MODE;
 				setTimer(lane, GREEN_DURATION*100);
@@ -37,7 +39,9 @@ void fsm_automatic_run(int lane){
 			break;
 		case GREEN_MODE:
 			if (lane == 0) displayCountdown(lane);
+
 			setTrafficLight(lane, GREEN_MODE);
+
 			if(timer_flag[lane]){
 				LED_MODE[lane] = AMBER_MODE;
 				setTimer(lane, YELLOW_DURATION*100);
@@ -45,7 +49,9 @@ void fsm_automatic_run(int lane){
 			break;
 		case AMBER_MODE:
 			if (lane == 0) displayCountdown(lane);
+
 			setTrafficLight(lane, AMBER_MODE);
+
 			if(timer_flag[lane]){
 				LED_MODE[lane] = RED_MODE;
 				setTimer(lane, RED_DURATION*100);

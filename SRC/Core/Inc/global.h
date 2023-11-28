@@ -22,7 +22,7 @@
 
 #define AUTO_MODE 11 //To make fsm_automatic run
 #define EDIT_MODE 12 //To make fsm_automatic stop working
-#define PED_MODE 13  //To add pedestrian light
+//#define PED_MODE 13  //To add pedestrian light
 
 //Three modes for light, reusable
 #define RED_MODE 21
@@ -30,7 +30,7 @@
 #define GREEN_MODE 23
 
 
-extern int LED_MODE [2];
+extern int LED_MODE [3];
 
 //For tuning traffic lights
 extern int MODE; //AUTO_MODE, EDIT_MODE

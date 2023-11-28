@@ -114,7 +114,9 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer(2, 100);
+  setTrafficLight(0, INIT);
+  setTrafficLight(1, INIT);
+  setTrafficLight(2, INIT);
   while (1)
   {
     /* USER CODE END WHILE */
@@ -122,6 +124,7 @@ int main(void)
 	  fsm_manual_run();
 	  fsm_automatic_run(0);
 	  fsm_automatic_run(1);
+	  fsm_automatic_run(2);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
