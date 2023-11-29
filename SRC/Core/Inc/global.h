@@ -16,6 +16,8 @@
 #include "fsm_manual.h"
 #include "fsm_ped.h"
 #include "uart_timer.h"
+#include <stdio.h>
+#include <string.h>
 
 //First state of fsm_automatic
 #define INIT 1
@@ -29,6 +31,8 @@
 #define AMBER_MODE 22
 #define GREEN_MODE 23
 
+#define SAVED 31
+
 
 extern int LED_MODE [3];
 
@@ -40,7 +44,7 @@ extern int TRAFFIC_MODE;
 
 //Light duration
 extern int RED_DURATION;
-extern int YELLOW_DURATION;
+extern int AMBER_DURATION;
 extern int GREEN_DURATION;
 
 #endif /* INC_GLOBAL_H_ */
