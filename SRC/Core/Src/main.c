@@ -43,8 +43,6 @@
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim2;
 
-UART_HandleTypeDef huart2;
-
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -60,6 +58,7 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
 int timer0_counter = 0;
 int timer0_flag = 0;
 int TIMER_CYCLE = 10;
@@ -74,7 +73,6 @@ void timer_run(){
 		if (timer0_counter == 0) timer0_flag = 1;
 	}
 }
-
 
 /* USER CODE END 0 */
 
@@ -119,6 +117,7 @@ int main(void)
   setTrafficLight(2, INIT);
   while (1)
   {
+
     /* USER CODE END WHILE */
 	  fsm_ped_run();
 	  fsm_manual_run();
