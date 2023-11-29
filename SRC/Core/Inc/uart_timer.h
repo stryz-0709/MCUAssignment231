@@ -10,6 +10,8 @@
 
 #include "global.h"
 
+UART_HandleTypeDef huart2;
+
 void displayUART(int mode, int num);
 
 #endif /* INC_UART_TIMER_H_ */
