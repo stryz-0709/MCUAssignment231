@@ -16,6 +16,7 @@
 #include "fsm_manual.h"
 #include "fsm_ped.h"
 #include "uart_timer.h"
+#include "buzzer.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -33,7 +34,6 @@
 
 #define SAVED 31
 
-
 extern int LED_MODE [3];
 
 //For tuning traffic lights
@@ -46,5 +46,6 @@ extern int TRAFFIC_MODE;
 extern int RED_DURATION;
 extern int AMBER_DURATION;
 extern int GREEN_DURATION;
+extern int PED;
 
 #endif /* INC_GLOBAL_H_ */
