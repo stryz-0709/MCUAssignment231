@@ -51,6 +51,7 @@ void changeDuration(int mode){
 void toggle(int mode){
 	toggleLight(0, mode);
 	toggleLight(1, mode);
+	toggleLight(2, mode);
 	setTimer(3, 25);
 }
 
