@@ -119,9 +119,10 @@ int main(void)
   setTrafficLight(2, INIT);
   SCH_Add_Task(&fsm_ped_run, 0, 0);
   SCH_Add_Task(&fsm_manual_run, 0, 0);
-  SCH_Add_Task(&fsm_automatic_run(0), 0, 0);
-  SCH_Add_Task(&fsm_automatic_run(1), 0, 0);
-  SCH_Add_Task(&fsm_automatic_run(2), 0, 0);
+
+  SCH_Add_Task(&fsm_automatic_run0, 0, 0);
+  SCH_Add_Task(&fsm_automatic_run1, 0, 0);
+  SCH_Add_Task(&fsm_automatic_run2, 0, 0);
   while (1)
   {
     /* USER CODE END WHILE */
