@@ -5,7 +5,7 @@
  *      Author: minht
  */
 
-#include "fsm_manual.h"
+#include <fsm_manual.h>
 
 int tempDuration = 0;
 
@@ -24,13 +24,13 @@ void changeMode(int mode, int duration, int ledMode){
 	LED_MODE[2] = ledMode;
 
 	//Turn off all lights
-	setTrafficLight(0, INIT);
-	setTrafficLight(1, INIT);
-	setTrafficLight(2, INIT);
+	setTrafficLight(0, OFF);
+	setTrafficLight(1, OFF);
+	setTrafficLight(2, OFF);
 
 	//Update mode
-	MODE = mode;
-	TRAFFIC_MODE = ledMode;
+	TRAFFIC_MODE = mode;
+	PED_MODE = ledMode;
 
 	//Set timer to toggle lights
 	setTimer(3, 25);
@@ -60,77 +60,91 @@ void toggle(int mode){
 void checkDuration(int mode){
 	int lane = GREEN_DURATION + AMBER_DURATION;
 	switch (mode){
-	case RED_MODE:
-		if (lane != RED_MODE) GREEN_DURATION = RED_DURATION - AMBER_DURATION;
+	case RED:
+		if (lane != RED) GREEN_DURATION = RED_DURATION - AMBER_DURATION;
 		break;
-	case AMBER_MODE:
-		if (lane != RED_MODE) RED_DURATION = GREEN_DURATION + AMBER_DURATION;
+	case AMBER:
+		if (lane != RED) RED_DURATION = GREEN_DURATION + AMBER_DURATION;
 		break;
-	case GREEN_MODE:
-		if (lane != RED_MODE) RED_DURATION = GREEN_DURATION + AMBER_DURATION;
+	case GREEN:
+		if (lane != RED) RED_DURATION = GREEN_DURATION + AMBER_DURATION;
 		break;
 	}
 }
 
 void fsm_manual_run(){
-	switch(MODE){
-		case AUTO_MODE:
+	switch(TRAFFIC_MODE){
+		case AUTO:
 			//Change mode
-			if (isButtonPressed(0)) changeMode(RED_MODE, RED_DURATION, EDIT_MODE);
+			if (isButtonPressed(0)){
+				changeMode(MANUAL, 0, INIT);
+				displayUART(MANUAL, tempDuration);
+			}
 			break;
 
-		case RED_MODE:
+		case MANUAL:
 			//Change mode
-			if (isButtonPressed(0)) changeMode(AMBER_MODE, AMBER_DURATION, EDIT_MODE);
+			if (isButtonPressed(0)){
+				changeMode(RED, RED_DURATION, OFF);
+				displayUART(TUNING, tempDuration);
+			}
+			break;
+
+		case RED:
+			//Change mode
+			if (isButtonPressed(0)) changeMode(AMBER, AMBER_DURATION, OFF);
 
 			//Change duration
-			if (isButtonPressed(1))	changeDuration(RED_MODE);
+			if (isButtonPressed(1))	changeDuration(RED);
 
 			//Save duration
 			if (isButtonPressed(2)){
 				RED_DURATION = tempDuration;
-				checkDuration(RED_MODE);
+				checkDuration(RED);
 				displayUART(SAVED, tempDuration);
 			}
 
 			//Toggle lights
-			if (timer_flag[3]) toggle(RED_MODE);
+			if (timer_flag[3]) toggle(RED);
 			break;
 
-		case AMBER_MODE:
+		case AMBER:
 			//Change mode
-			if (isButtonPressed(0)) changeMode(GREEN_MODE, GREEN_DURATION, EDIT_MODE);
+			if (isButtonPressed(0)) changeMode(GREEN, GREEN_DURATION, OFF);
 
 			//Change duration
-			if (isButtonPressed(1))	changeDuration(AMBER_MODE);
+			if (isButtonPressed(1))	changeDuration(AMBER);
 
 			//Save duration
 			if (isButtonPressed(2)){
 				AMBER_DURATION = tempDuration;
-				checkDuration(AMBER_MODE);
+				checkDuration(AMBER);
 				displayUART(SAVED, tempDuration);
 			}
 
 			//Toggle lights
-			if (timer_flag[3]) toggle(AMBER_MODE);
+			if (timer_flag[3]) toggle(AMBER);
 			break;
 
-		case GREEN_MODE:
+		case GREEN:
 			//Change mode
-			if (isButtonPressed(0)) changeMode(AUTO_MODE, 0, INIT);
+			if (isButtonPressed(0)){
+				changeMode(AUTO, 0, INIT);
+				displayUART(AUTO, tempDuration);
+			}
 
 			//Change duration
-			if (isButtonPressed(1)) changeDuration(GREEN_MODE);
+			if (isButtonPressed(1)) changeDuration(GREEN);
 
 			//Save duration
 			if (isButtonPressed(2)){
 				GREEN_DURATION = tempDuration;
-				checkDuration(GREEN_MODE);
+				checkDuration(GREEN);
 				displayUART(SAVED, tempDuration);
 			}
 
 			//Toggle lights
-			if (timer_flag[3]) toggle(GREEN_MODE);
+			if (timer_flag[3]) toggle(GREEN);
 			break;
 
 		default:

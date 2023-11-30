@@ -13,41 +13,41 @@ void turnPedLed(int mode){
 		LED_MODE[2] = LED_MODE[0];
 	}
 	else{
-		LED_MODE[2] = EDIT_MODE;
-		setTrafficLight(2, INIT);
+		LED_MODE[2] = OFF;
+		setTrafficLight(2, OFF);
 	}
 }
 
 void fsm_ped_run(){
-	switch(TRAFFIC_MODE){
+	switch(PED_MODE){
 		case INIT:
 			if (PED == 1){
 				turnPedLed(PED);
-				TRAFFIC_MODE = AUTO_MODE;
+				PED_MODE = AUTO;
 			}
 			else {
 				turnPedLed(PED);
-				TRAFFIC_MODE = EDIT_MODE;
+				PED_MODE = OFF;
 			}
 			break;
 
 		//Off mode
-		case EDIT_MODE:
+		case OFF:
 			//TODO
 			if (isButtonPressed(3)){
 				//Mimic lane 0 light
 				turnPedLed(1);
 
 				//Change mode
-				if (MODE == AUTO_MODE){
+				if (TRAFFIC_MODE == AUTO){
 					PED = 1;
-					TRAFFIC_MODE = AUTO_MODE;
+					PED_MODE = AUTO;
 				}
 			}
 			break;
 
 		//On mode
-		case AUTO_MODE:
+		case AUTO:
 			//TODO
 			//Implement buzzer here
 			if (isButtonPressed(3)){
@@ -56,7 +56,7 @@ void fsm_ped_run(){
 
 				//Change mode
 				PED = 0;
-				TRAFFIC_MODE = EDIT_MODE;
+				PED_MODE = OFF;
 			}
 			break;
 		default:
