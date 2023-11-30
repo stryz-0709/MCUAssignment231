@@ -19,6 +19,20 @@ void displayCountdown(int lane){
 int initDuration(int lane){
 	return (lane == 1)? GREEN_DURATION : RED_DURATION;
 }
+void fsm_automatic_run0()
+{
+	fsm_automatic_run(0);
+}
+
+void fsm_automatic_run1()
+{
+	fsm_automatic_run(1);
+}
+
+void fsm_automatic_run2()
+{
+	fsm_automatic_run(2);
+}
 
 void fsm_automatic_run(int lane){
 	switch(LED_MODE[lane]){

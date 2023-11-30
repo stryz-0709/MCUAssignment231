@@ -19,6 +19,7 @@
 #include "buzzer.h"
 #include <stdio.h>
 #include <string.h>
+#include "sched.h"
 
 //First state of fsm_automatic
 #define INIT 1
