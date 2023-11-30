@@ -8,8 +8,8 @@
 #include "global.h"
 
 int LED_MODE [3] = {INIT, INIT, INIT};
-int MODE = AUTO_MODE;
-int TRAFFIC_MODE = INIT;
+int TRAFFIC_MODE = AUTO;
+int PED_MODE = INIT;
 
 int RED_DURATION = 5;
 int AMBER_DURATION = 2;
