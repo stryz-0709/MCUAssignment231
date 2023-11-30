@@ -7,15 +7,15 @@
 
 #include "fsm_automatic.h"
 
+int initMode[3] = {RED, GREEN, OFF};
+
 void displayCountdown(int lane){
 	if (timer_counter[lane] % 100 == 0){
 		int remaining_time = timer_counter[lane] / 100;
-		displayUART(AUTO_MODE, remaining_time % 10);
+		displayUART(COUNTDOWN, remaining_time);
 	}
 }
 
-
-int initMode[3] = {RED_MODE, GREEN_MODE, EDIT_MODE};
 int initDuration(int lane){
 	return (lane == 1)? GREEN_DURATION : RED_DURATION;
 }
@@ -37,41 +37,65 @@ void fsm_automatic_run2()
 void fsm_automatic_run(int lane){
 	switch(LED_MODE[lane]){
 		case INIT:
-			setTrafficLight(lane, INIT);
+			//Turn off all lights
+			setTrafficLight(lane, OFF);
+
+			//Change mode and duration
 			LED_MODE[lane] = initMode[lane];
 			setTimer(lane, initDuration(lane)*100);
 			break;
-		case RED_MODE:
+		case RED:
+			//Display countdown and turn on light
 			if (lane == 0) displayCountdown(lane);
+			setTrafficLight(lane, RED);
 
-			setTrafficLight(lane, RED_MODE);
 
+			//Timer flag to change light
 			if(timer_flag[lane]){
-				LED_MODE[lane] = GREEN_MODE;
+				LED_MODE[lane] = GREEN;
 				setTimer(lane, GREEN_DURATION*100);
 			}
-			break;
-		case GREEN_MODE:
-			if (lane == 0) displayCountdown(lane);
 
-			setTrafficLight(lane, GREEN_MODE);
-
-			if(timer_flag[lane]){
-				LED_MODE[lane] = AMBER_MODE;
-				setTimer(lane, YELLOW_DURATION*100);
+			if(TRAFFIC_MODE == MANUAL){
+				if (isButtonPressed(1)) LED_MODE[lane] = GREEN;
+				if (isButtonPressed(2)) LED_MODE[lane] = AMBER;
 			}
 			break;
-		case AMBER_MODE:
+		case AMBER:
+			//Display countdown and turn on light
 			if (lane == 0) displayCountdown(lane);
+			if (lane == 2) setTrafficLight(lane, GREEN);
+			else setTrafficLight(lane, AMBER);
 
-			setTrafficLight(lane, AMBER_MODE);
 
+			//Timer flag to change light
 			if(timer_flag[lane]){
-				LED_MODE[lane] = RED_MODE;
+				LED_MODE[lane] = RED;
 				setTimer(lane, RED_DURATION*100);
 			}
+
+			if(TRAFFIC_MODE == MANUAL){
+				if (isButtonPressed(1)) LED_MODE[lane] = RED;
+				if (isButtonPressed(2)) LED_MODE[lane] = GREEN;
+			}
 			break;
-		case EDIT_MODE:
+		case GREEN:
+			//Display countdown and turn on light
+			if (lane == 0) displayCountdown(lane);
+			setTrafficLight(lane, GREEN);
+
+			//Timer flag to change light
+			if(timer_flag[lane]){
+				LED_MODE[lane] = AMBER;
+				setTimer(lane, AMBER_DURATION*100);
+			}
+
+			if(TRAFFIC_MODE == MANUAL){
+				if (isButtonPressed(1)) LED_MODE[lane] = AMBER;
+				if (isButtonPressed(2)) LED_MODE[lane] = RED;
+			}
+			break;
+		case OFF:
 			break;
 		default:
 			break;

@@ -13,21 +13,23 @@ GPIO_TypeDef *D_Port[6] = {D2_GPIO_Port, D3_GPIO_Port, D4_GPIO_Port, D5_GPIO_Por
 
 void setTrafficLight(int lane, int light){
 	switch (light){
-		case RED_MODE:
+		case RED:
 			HAL_GPIO_WritePin(D_Port[lane*2], D_Pin[lane*2], SET);
 			HAL_GPIO_WritePin(D_Port[lane*2+1], D_Pin[lane*2+1], RESET);
 			break;
-		case AMBER_MODE:
+		case AMBER:
 			HAL_GPIO_WritePin(D_Port[lane*2], D_Pin[lane*2], SET);
 			HAL_GPIO_WritePin(D_Port[lane*2+1], D_Pin[lane*2+1], SET);
 			break;
-		case GREEN_MODE:
+		case GREEN:
 			HAL_GPIO_WritePin(D_Port[lane*2], D_Pin[lane*2], RESET);
 			HAL_GPIO_WritePin(D_Port[lane*2+1], D_Pin[lane*2+1], SET);
+			break;
+		case OFF:
+			HAL_GPIO_WritePin(D_Port[lane*2], D_Pin[lane*2], RESET);
+			HAL_GPIO_WritePin(D_Port[lane*2+1], D_Pin[lane*2+1], RESET);
 			break;
 		default:
-			HAL_GPIO_WritePin(D_Port[lane*2], D_Pin[lane*2], RESET);
-			HAL_GPIO_WritePin(D_Port[lane*2+1], D_Pin[lane*2+1], RESET);
 			break;
 	}
 }
@@ -35,15 +37,15 @@ void setTrafficLight(int lane, int light){
 
 void toggleLight(int lane, int light){
 	switch (light){
-		case RED_MODE:
+		case RED:
 			HAL_GPIO_TogglePin(D_Port[lane*2], D_Pin[lane*2]);
 			HAL_GPIO_WritePin(D_Port[lane*2+1], D_Pin[lane*2+1], RESET);
 			break;
-		case AMBER_MODE:
+		case AMBER:
 			HAL_GPIO_TogglePin(D_Port[lane*2], D_Pin[lane*2]);
 			HAL_GPIO_TogglePin(D_Port[lane*2+1], D_Pin[lane*2+1]);
 			break;
-		case GREEN_MODE:
+		case GREEN:
 			HAL_GPIO_WritePin(D_Port[lane*2], D_Pin[lane*2], RESET);
 			HAL_GPIO_TogglePin(D_Port[lane*2+1], D_Pin[lane*2+1]);
 			break;

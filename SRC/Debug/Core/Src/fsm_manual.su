@@ -1,3 +1,5 @@
-fsm_manual.c:12:6:changeMode	16	static
-fsm_manual.c:21:6:displayMode	16	static
-fsm_manual.c:25:6:fsm_manual_run	8	static
+fsm_manual.c:14:6:changeMode	24	static
+fsm_manual.c:41:6:changeDuration	16	static
+fsm_manual.c:51:6:toggle	16	static
+fsm_manual.c:60:6:checkDuration	24	static
+fsm_manual.c:75:6:fsm_manual_run	8	static
