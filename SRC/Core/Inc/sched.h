@@ -8,7 +8,7 @@
 #ifndef INC_SCHED_H_
 #define INC_SCHED_H_
 
-#include "global.h"
+// #include "global.h"
 #include <stdio.h>
 typedef void (*CALLBACK)(void);
 
@@ -28,11 +28,11 @@ typedef struct {
 
 void SCH_Init(void);
 void SCH_Update(void);
-void SCH_Add_Task( CALLBACK callback ,
+uint32_t SCH_Add_Task( CALLBACK callback ,
 							unsigned int delay,
 							unsigned int period);
 void SCH_Dispatcher_Tasks(void);
-void SCH_Delete_Task(uint32_t TASK_INDEX);
-
+uint32_t SCH_Delete_Task(uint32_t TASK_INDEX);
+int Get_New_Task_ID(void);
 void SCH_Report_Status (void);
 #endif /* INC_SCHED_H_ */
