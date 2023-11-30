@@ -1,4 +1,5 @@
 "./Core/Src/button.o"
+"./Core/Src/buzzer.o"
 "./Core/Src/fsm_automatic.o"
 "./Core/Src/fsm_manual.o"
 "./Core/Src/fsm_ped.o"
