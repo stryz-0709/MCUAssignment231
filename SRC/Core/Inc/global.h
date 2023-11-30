@@ -16,6 +16,7 @@
 #include "fsm_manual.h"
 #include "fsm_ped.h"
 #include "uart_timer.h"
+#include "sched.h"
 
 //First state of fsm_automatic
 #define INIT 1

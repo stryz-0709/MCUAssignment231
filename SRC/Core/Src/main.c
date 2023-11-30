@@ -117,14 +117,21 @@ int main(void)
   setTrafficLight(0, INIT);
   setTrafficLight(1, INIT);
   setTrafficLight(2, INIT);
+  SCH_Add_Task(&fsm_ped_run, 0, 0);
+  SCH_Add_Task(&fsm_manual_run, 0, 0);
+
+  SCH_Add_Task(&fsm_automatic_run0, 0, 0);
+  SCH_Add_Task(&fsm_automatic_run1, 0, 0);
+  SCH_Add_Task(&fsm_automatic_run2, 0, 0);
   while (1)
   {
     /* USER CODE END WHILE */
-	  fsm_ped_run();
-	  fsm_manual_run();
-	  fsm_automatic_run(0);
-	  fsm_automatic_run(1);
-	  fsm_automatic_run(2);
+//	  fsm_ped_run();
+//	  fsm_manual_run();
+//	  fsm_automatic_run(0);
+//	  fsm_automatic_run(1);
+//	  fsm_automatic_run(2);
+	  SCH_Dispatcher_Tasks();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -305,6 +312,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	getKeyInput(1);
 	getKeyInput(2);
 	getKeyInput(3);
+	SCH_Update();
 }
 /* USER CODE END 4 */
 
