@@ -1,0 +1,7 @@
+../Core/Src/sched.c:14:6:SCH_Init	1
+../Core/Src/sched.c:20:6:SCH_Update	5
+../Core/Src/sched.c:35:10:SCH_Add_Task	7
+../Core/Src/sched.c:100:6:SCH_Dispatcher_Tasks	3
+../Core/Src/sched.c:115:10:SCH_Delete_Task	8
+../Core/Src/sched.c:159:5:Get_New_Task_ID	2
+../Core/Src/sched.c:172:6:SCH_Report_Status	1

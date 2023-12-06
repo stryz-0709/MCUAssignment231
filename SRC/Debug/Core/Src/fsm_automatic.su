@@ -1,3 +1,5 @@
-fsm_automatic.c:12:6:displayCountdown	24	static
-fsm_automatic.c:19:5:initDuration	16	static
-fsm_automatic.c:23:6:fsm_automatic_run	16	static
+../Core/Src/fsm_automatic.c:13:5:initDuration	16	static
+../Core/Src/fsm_automatic.c:16:6:fsm_automatic_run0	8	static
+../Core/Src/fsm_automatic.c:21:6:fsm_automatic_run1	8	static
+../Core/Src/fsm_automatic.c:26:6:fsm_automatic_run2	8	static
+../Core/Src/fsm_automatic.c:36:6:fsm_automatic_run	16	static

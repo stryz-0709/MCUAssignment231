@@ -1,0 +1,2 @@
+../Core/Src/traffic_light.c:14:6:setTrafficLight	5
+../Core/Src/traffic_light.c:38:6:toggleLight	5

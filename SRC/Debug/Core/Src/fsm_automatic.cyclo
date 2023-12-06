@@ -1,0 +1,5 @@
+../Core/Src/fsm_automatic.c:13:5:initDuration	2
+../Core/Src/fsm_automatic.c:16:6:fsm_automatic_run0	1
+../Core/Src/fsm_automatic.c:21:6:fsm_automatic_run1	1
+../Core/Src/fsm_automatic.c:26:6:fsm_automatic_run2	1
+../Core/Src/fsm_automatic.c:36:6:fsm_automatic_run	13
