@@ -9,11 +9,30 @@
 
 int tempDuration = 0;
 
+int LIGHT[8] = {RED, RED, GREEN, AMBER, GREEN, AMBER, RED, RED};
+int manualMode[2] = {0, 4};
+
+void manualPlus(int lane){
+	manualMode[lane] += 1;
+	if (manualMode[lane] > (lane+1)*4-1) manualMode[lane] = lane*4;
+	LED_MODE[lane] = LIGHT[manualMode[lane]];
+}
+
+void manualMinus(int lane){
+	manualMode[lane] -= 1;
+	if (manualMode[lane] < lane*4) manualMode[lane] = (lane+1)*4-1;
+	LED_MODE[lane] = LIGHT[manualMode[lane]];
+}
+
+
+void display(int mode, int duration){
+	displayUART(mode, duration, 0, 0, 0, 0, 0);
+}
 
 //Change mode
 void changeMode(int mode, int duration, int ledMode){
 	//Display duration
-	displayUART(mode, duration);
+	display(mode, duration);
 	tempDuration = duration;
 
 	//Change traffic lights to toggle the right color
@@ -43,7 +62,7 @@ void changeDuration(int mode){
 	if (tempDuration == 100) tempDuration = 1;
 
 	//Display duration
-	displayUART(mode, tempDuration);
+	display(mode, tempDuration);
 }
 
 
@@ -53,6 +72,13 @@ void toggle(int mode){
 	toggleLight(1, mode);
 	toggleLight(2, mode);
 	setTimer(3, 25);
+}
+
+
+void displayCountdown(){
+	if (timer_counter[0] % 100 == 0 && timer_counter[1] % 100 == 0){
+		displayUART(COUNTDOWN, timer_counter[0] / 100, timer_counter[1] / 100, LED_MODE[0], LED_MODE[1], LED_MODE[2], PED_MODE);
+	}
 }
 
 
@@ -76,9 +102,10 @@ void fsm_manual_run(){
 	switch(TRAFFIC_MODE){
 		case AUTO:
 			//Change mode
+			displayCountdown();
 			if (isButtonPressed(0)){
 				changeMode(MANUAL, 0, INIT);
-				displayUART(MANUAL, tempDuration);
+				displayUART(MANUAL, 0, 0, LIGHT[manualMode[0]], LIGHT[manualMode[1]], 0, 0);
 			}
 			break;
 
@@ -86,7 +113,17 @@ void fsm_manual_run(){
 			//Change mode
 			if (isButtonPressed(0)){
 				changeMode(RED, RED_DURATION, OFF);
-				displayUART(TUNING, tempDuration);
+			}
+
+			if (isButtonPressed(1)){
+				manualPlus(0);
+				manualPlus(1);
+				displayUART(MANUAL, 0, 0, LIGHT[manualMode[0]], LIGHT[manualMode[1]], 0, 0);
+			}
+			if (isButtonPressed(2)){
+				manualMinus(0);
+				manualMinus(1);
+				displayUART(MANUAL, 0, 0, LIGHT[manualMode[0]], LIGHT[manualMode[1]], 0, 0);
 			}
 			break;
 
@@ -101,7 +138,7 @@ void fsm_manual_run(){
 			if (isButtonPressed(2)){
 				RED_DURATION = tempDuration;
 				checkDuration(RED);
-				displayUART(SAVED, tempDuration);
+				display(SAVED, tempDuration);
 			}
 
 			//Toggle lights
@@ -119,7 +156,7 @@ void fsm_manual_run(){
 			if (isButtonPressed(2)){
 				AMBER_DURATION = tempDuration;
 				checkDuration(AMBER);
-				displayUART(SAVED, tempDuration);
+				display(SAVED, tempDuration);
 			}
 
 			//Toggle lights
@@ -128,10 +165,7 @@ void fsm_manual_run(){
 
 		case GREEN:
 			//Change mode
-			if (isButtonPressed(0)){
-				changeMode(AUTO, 0, INIT);
-				displayUART(AUTO, tempDuration);
-			}
+			if (isButtonPressed(0))	changeMode(AUTO, 0, INIT);
 
 			//Change duration
 			if (isButtonPressed(1)) changeDuration(GREEN);
@@ -140,7 +174,7 @@ void fsm_manual_run(){
 			if (isButtonPressed(2)){
 				GREEN_DURATION = tempDuration;
 				checkDuration(GREEN);
-				displayUART(SAVED, tempDuration);
+				display(SAVED, tempDuration);
 			}
 
 			//Toggle lights

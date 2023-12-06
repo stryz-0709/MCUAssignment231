@@ -9,12 +9,6 @@
 
 int initMode[3] = {RED, GREEN, OFF};
 
-void displayCountdown(int lane){
-	if (timer_counter[lane] % 100 == 0){
-		int remaining_time = timer_counter[lane] / 100;
-		displayUART(COUNTDOWN, remaining_time);
-	}
-}
 
 int initDuration(int lane){
 	return (lane == 1)? GREEN_DURATION : RED_DURATION;
@@ -34,68 +28,91 @@ void fsm_automatic_run2()
 	fsm_automatic_run(2);
 }
 
+//void buzzer(int val1, int val2) {
+//	__HAL_TIM_SET_AUTORELOAD(&htim3, 5*val1);
+//	__HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1, 0.6 * (5*val2));
+//}
+
 void fsm_automatic_run(int lane){
 	switch(LED_MODE[lane]){
 		case INIT:
 			//Turn off all lights
 			setTrafficLight(lane, OFF);
+			val = MAX;
 
 			//Change mode and duration
 			LED_MODE[lane] = initMode[lane];
 			setTimer(lane, initDuration(lane)*100);
+
 			break;
 		case RED:
-			//Display countdown and turn on light
-			if (lane == 0) displayCountdown(lane);
 			setTrafficLight(lane, RED);
-
+			val = MAX;
+//			buzzer(val, 0);
 
 			//Timer flag to change light
-			if(timer_flag[lane]){
+			if(timer_flag[lane] && TRAFFIC_MODE != MANUAL){
 				LED_MODE[lane] = GREEN;
+//				if (lane == 2) setTimer(lane, (GREEN_DURATION+AMBER_DURATION)*100);
 				setTimer(lane, GREEN_DURATION*100);
-			}
-
-			if(TRAFFIC_MODE == MANUAL){
-				if (isButtonPressed(1)) LED_MODE[lane] = GREEN;
-				if (isButtonPressed(2)) LED_MODE[lane] = AMBER;
+//				setTimer(5,10);
 			}
 			break;
 		case AMBER:
-			//Display countdown and turn on light
-			if (lane == 0) displayCountdown(lane);
-			if (lane == 2) setTrafficLight(lane, GREEN);
+			if (lane == 2){
+				setTrafficLight(lane, GREEN);
+//				if (timer_flag[lane] % 100 == 0){
+//					buzzer(val, val);
+//					val = val - MAX/(GREEN_DURATION + AMBER_DURATION - 1);
+//				}
+
+			}
 			else setTrafficLight(lane, AMBER);
+//				buzzer(val, 0);
+
 
 
 			//Timer flag to change light
-			if(timer_flag[lane]){
+			if(timer_flag[lane] && TRAFFIC_MODE != MANUAL){
 				LED_MODE[lane] = RED;
 				setTimer(lane, RED_DURATION*100);
 			}
 
-			if(TRAFFIC_MODE == MANUAL){
-				if (isButtonPressed(1)) LED_MODE[lane] = RED;
-				if (isButtonPressed(2)) LED_MODE[lane] = GREEN;
-			}
+
 			break;
 		case GREEN:
-			//Display countdown and turn on light
-			if (lane == 0) displayCountdown(lane);
+
 			setTrafficLight(lane, GREEN);
+			if (lane == 2){
+//				if (timer_flag[lane] % 100 == 0){
+//					buzzer(val, val);
+//					val = val - MAX/(GREEN_DURATION + AMBER_DURATION - 1);
+//				}
+
+			}
+//			else buzzer(val, 0);
 
 			//Timer flag to change light
-			if(timer_flag[lane]){
-				LED_MODE[lane] = AMBER;
-				setTimer(lane, AMBER_DURATION*100);
+
+			if(timer_flag[lane] && TRAFFIC_MODE != MANUAL){
+//				if (lane == 2){
+//					LED_MODE[lane] = RED;
+//					setTimer(lane, RED_DURATION*100);
+//				}
+//				else {
+					LED_MODE[lane] = AMBER;
+					setTimer(lane, AMBER_DURATION*100);
+//				}
+
 			}
 
-			if(TRAFFIC_MODE == MANUAL){
-				if (isButtonPressed(1)) LED_MODE[lane] = AMBER;
-				if (isButtonPressed(2)) LED_MODE[lane] = RED;
-			}
+//			if(TRAFFIC_MODE == MANUAL){
+//				if (isButtonPressed(1)) LED_MODE[lane] = AMBER;
+//				if (isButtonPressed(2)) LED_MODE[lane] = RED;
+//			}
 			break;
 		case OFF:
+			stopBuzzer(RED);
 			break;
 		default:
 			break;
