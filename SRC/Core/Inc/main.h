@@ -58,6 +58,9 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define B1_Pin GPIO_PIN_13
+#define B1_GPIO_Port GPIOC
+#define B1_EXTI_IRQn EXTI15_10_IRQn
 #define Ped_BUTTON_Pin GPIO_PIN_0
 #define Ped_BUTTON_GPIO_Port GPIOA
 #define BUTTON1_Pin GPIO_PIN_1
@@ -66,6 +69,8 @@ void Error_Handler(void);
 #define BUTTON2_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
+#define D12_Pin GPIO_PIN_6
+#define D12_GPIO_Port GPIOA
 #define BUTTON3_Pin GPIO_PIN_0
 #define BUTTON3_GPIO_Port GPIOB
 #define Ped_LIGHT1_Pin GPIO_PIN_10
@@ -74,12 +79,17 @@ void Error_Handler(void);
 #define Ped_LIGHT2_GPIO_Port GPIOA
 #define D2_Pin GPIO_PIN_10
 #define D2_GPIO_Port GPIOA
+#define TMS_Pin GPIO_PIN_13
+#define TMS_GPIO_Port GPIOA
+#define TCK_Pin GPIO_PIN_14
+#define TCK_GPIO_Port GPIOA
 #define D3_Pin GPIO_PIN_3
 #define D3_GPIO_Port GPIOB
 #define D5_Pin GPIO_PIN_4
 #define D5_GPIO_Port GPIOB
 #define D4_Pin GPIO_PIN_5
 #define D4_GPIO_Port GPIOB
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
@@ -89,5 +99,3 @@ void Error_Handler(void);
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
