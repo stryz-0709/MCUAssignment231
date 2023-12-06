@@ -9,7 +9,7 @@
 #define INC_SCHED_H_
 
 // #include "global.h"
-#include <stdio.h>
+#include "global.h"
 typedef void (*CALLBACK)(void);
 
 

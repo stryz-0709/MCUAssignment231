@@ -10,4 +10,8 @@
 
 #include "global.h"
 
+void grnBuzzer(void);
+void redBuzzer(void);
+void stopBuzzer(int light);
+
 #endif /* INC_BUZZER_H_ */
