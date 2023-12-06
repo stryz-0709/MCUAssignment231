@@ -8,7 +8,8 @@
 #ifndef INC_GLOBAL_H_
 #define INC_GLOBAL_H_
 
-#include <fsm_manual.h>
+#include "fsm_manual.h"
+#include "notes.h"
 #include "software_timer.h"
 #include "button.h"
 #include "main.h"
@@ -17,8 +18,10 @@
 #include "fsm_ped.h"
 #include "uart_timer.h"
 #include "buzzer.h"
+#include "tim.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 #include "sched.h"
 
 //First state of fsm_automatic
@@ -36,8 +39,18 @@
 #define SAVED 31
 #define TUNING 32
 #define COUNTDOWN 33
+#define DEBUGGER 34
+
+#define MAX 5000
+
+extern int val;
 
 extern int LED_MODE [3];
+
+extern UART_HandleTypeDef huart2;
+
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 
 //For tuning traffic lights
 extern int TRAFFIC_MODE; //AUTO_MODE, MANUAL_MODE, EDIT_MODE
